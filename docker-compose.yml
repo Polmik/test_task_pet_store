@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    image: nginx:1.14
+    ports: 
+      - "3000:80"
+    volumes:
+      - gradle-report:/usr/share/nginx/html
+  
+  test:
+    image: ${IMAGE}:${VERSION}
+    ports:
+      - "3001:${TARGETPORT}"
+    volumes:
+      - ./:/app
+      - gradle-report:/report
+      - gradle-repo:/root/.gradle/caches/modules-2/files-2.1
+    environment:
+      - TARGETPORT
+      - TEST_USERNAME
+      - TEST_PASSWORD
+
+volumes:
+  gradle-repo:
+  gradle-report:

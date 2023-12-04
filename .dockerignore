@@ -1,0 +1,6 @@
+.*
+gradle
+Dockerfile
+build.gradle
+gradlew
+gradlew.bat
