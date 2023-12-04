@@ -36,6 +36,13 @@ docker build -t my-test-container .
 
 Тесты можно легко обновлять или добавлять: просто добавьте классы Java или внесите любые изменения в кодовую базу, запустите тестовый контейнер еще раз.
 
+Хоть тесты и поддерживаеют параметризацию через глобальные переменные, на текущий момент поддерживаются следующие параметры, которые можно задать в `.env` файле:
+```
+TEST_USERNAME=user1
+TEST_PASSWORD=131313
+```
+Если данные параметры не будут заданы, то будут использованы параметры из файла `tests/resources/properties/config.properties`
+
 1. Развертывание сервисов, необходимых для тестирования
 
 ```bash
@@ -54,6 +61,20 @@ docker-compose start test
 
 ```bash
 docker-compose logs -f
+```
+Изначально проект поддерживает подробное логгирование с отображением отправленных запросов и полученных ответов. 
+
+Чтобы избежать отображение настолько подробной информации необходимо:
+* Задать параметры logRequest и logResponse, как false
+* Изменить уровень логгирования на другой
+
+Для исключения из логов чувствительной информации обратитесь к файлу `tests/resources/properties/secretWords.properties`, где можно задать необходимые параметры для маскировки:
+```
+secretBodyWords=password
+secretBodyWordsReplacementTemplate=%s.*"(.*)"
+secretHeaders=Authorization,apiKey
+secretHeadersReplacementPattern=.*
+replacement=**********
 ```
 
 Лог предоставляется в следующем формате:
@@ -87,7 +108,6 @@ Gradle suite > Gradle test > tests.users.UpdateUserTests > testUpdateOneField[5]
 ```commandline
 http://localhost:3000
 ```
-
 ![img_xml.png](img_xml.png)
 
 3. Посмотреть Allure отчет
@@ -97,3 +117,8 @@ http://localhost:3001
 ```
 
 ![img_allure.png](img_allure.png)
+
+
+### Known problems with tests
+
+Решение содержит несколько упавших тестов, связанных с тем, что метод UpdateUser (PUT) создает нового пользователя, если передать ему несуществующий ID, либо Username
