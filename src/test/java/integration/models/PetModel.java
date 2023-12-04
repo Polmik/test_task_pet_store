@@ -6,6 +6,7 @@ import integration.constants.PetUrls;
 import lombok.Data;
 import org.apache.commons.lang3.RandomStringUtils;
 import utils.EnumUtils;
+import utils.ValidationUtils;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -44,10 +45,10 @@ public class PetModel {
         }
         PetModel expObj = (PetModel) obj;
         return this.id.equals(expObj.id)
-                && this.name.equals(expObj.name)
-                && this.status.equals(expObj.status)
-                && this.category.equals(expObj.category)
-                && this.tags.equals(expObj.tags)
+                && ValidationUtils.equals(this.name, expObj.name)
+                && ValidationUtils.equals(this.status, expObj.status)
+                && ValidationUtils.equals(this.category, expObj.category)
+                && (this.tags == expObj.tags || this.tags.equals(expObj.tags))
                 && this.photoUrls.equals(expObj.photoUrls);
     }
 }
