@@ -88,7 +88,7 @@ Gradle suite > Gradle test > tests.users.UpdateUserTests > testUpdateOneField[5]
 2023-12-04 11:35:15     {
 2023-12-04 11:35:15         "firstName": "TxJjIDKgeo",
 2023-12-04 11:35:15         "lastName": "ZVgZGYgstF",
-2023-12-04 11:35:15         "password": "jtXITb8La8",
+2023-12-04 11:35:15         "password": "**********",
 2023-12-04 11:35:15         "userStatus": 7,
 2023-12-04 11:35:15         "phone": "5381302482",
 2023-12-04 11:35:15         "id": 7830231199,
